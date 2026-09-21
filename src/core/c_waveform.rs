@@ -3,6 +3,7 @@
 use std::f64::consts::{PI, TAU};
 use crate::core::c_pitch::Note;
 
+#[derive(Debug, Clone, Copy)]
 pub enum Waveform {
     Sine, Sawtooth, Square, Triangle, Pulse(i32 /* Pulsewidth */),
     // PinkN, BrownN, WhiteN, VelvetN(i32 /* Density */), BlueN, GreyN, VioletN, GreenN,
@@ -15,12 +16,12 @@ pub enum Waveform {
     Weierstrass(u8 /* Terms */), Takagi(u8 /* Terms */), Cantor(u8 /* Depth */), ThueMorse(u8 /* Bits */),
 }
 
-pub fn waveform(wave: Waveform, note: Note, time: f64) -> f64 {
+pub fn waveform(wave: Waveform, note: Note, time: f64, volume: f64) -> f64 {
     let hz = note.frequency_hz();
     let p = (hz * time).rem_euclid(1.0);
     let theta = TAU * hz * time;
 
-    match wave {
+    volume * match wave {
         Waveform::Sine => theta.sin(),
         Waveform::Sawtooth => 2.0 * p - 1.0,
         Waveform::Square => if p < 0.5 { 1.0 } else { -1.0 },
