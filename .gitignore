@@ -1,0 +1,28 @@
+# Build artifacts
+/target/
+
+# Rust backup files
+*/.rs.bk
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+
+# Added by cargo
+
+/target
